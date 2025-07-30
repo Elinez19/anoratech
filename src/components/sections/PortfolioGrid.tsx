@@ -5,7 +5,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { PORTFOLIO_DATA, PORTFOLIO_CATEGORIES } from '../../constants';
 
-const Portfolio: React.FC = () => {
+const PortfolioGrid: React.FC = () => {
   const [filter, setFilter] = useState('All');
   const { ref, inView } = useInView({
     triggerOnce: true,
@@ -38,15 +38,14 @@ const Portfolio: React.FC = () => {
   };
 
   return (
-    <section id="portfolio" className="section bg-midnight-50">
+    <section className="py-20">
       <div className="container">
         <div className="text-center mb-16">
-          <div className="inline-block mb-3 px-4 py-1 rounded-full bg-mint-100 text-mint-700 font-medium text-sm">
-            Our Work
-          </div>
-          <h2 className="section-title">Transforming Ideas Into Reality</h2>
-          <p className="section-subtitle">
-            Explore our portfolio of successful MVPs we've built for innovative startups.
+          <h2 className="text-3xl md:text-4xl font-bold text-midnight-900 mb-4">
+            Our Latest Work
+          </h2>
+          <p className="text-xl text-midnight-600 max-w-3xl mx-auto">
+            Explore our diverse portfolio of successful projects across different industries and technologies.
           </p>
         </div>
 
@@ -71,7 +70,7 @@ const Portfolio: React.FC = () => {
           variants={containerVariants}
           initial="hidden"
           animate={inView ? 'visible' : 'hidden'}
-          className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {filteredProjects.map((project) => (
             <motion.div
@@ -108,4 +107,4 @@ const Portfolio: React.FC = () => {
   );
 };
 
-export default Portfolio;
+export default PortfolioGrid; 

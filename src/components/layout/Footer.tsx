@@ -1,5 +1,8 @@
 
 import { Facebook, Twitter, Instagram, Linkedin, Github, Mail, Phone, MapPin } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ROUTE_PATHS } from '../../routes';
+import { SOCIAL_LINKS, CONTACT_INFO } from '../../constants';
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
@@ -14,19 +17,19 @@ const Footer: React.FC = () => {
               Building extraordinary MVPs at unprecedented speeds using AI-powered development.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-midnight-300 hover:text-mint-500 transition-colors">
+              <a href={SOCIAL_LINKS.facebook} className="text-midnight-300 hover:text-mint-500 transition-colors" target="_blank" rel="noopener noreferrer">
                 <Facebook size={20} />
               </a>
-              <a href="#" className="text-midnight-300 hover:text-mint-500 transition-colors">
+              <a href={SOCIAL_LINKS.twitter} className="text-midnight-300 hover:text-mint-500 transition-colors" target="_blank" rel="noopener noreferrer">
                 <Twitter size={20} />
               </a>
-              <a href="#" className="text-midnight-300 hover:text-mint-500 transition-colors">
+              <a href={SOCIAL_LINKS.instagram} className="text-midnight-300 hover:text-mint-500 transition-colors" target="_blank" rel="noopener noreferrer">
                 <Instagram size={20} />
               </a>
-              <a href="#" className="text-midnight-300 hover:text-mint-500 transition-colors">
+              <a href={SOCIAL_LINKS.linkedin} className="text-midnight-300 hover:text-mint-500 transition-colors" target="_blank" rel="noopener noreferrer">
                 <Linkedin size={20} />
               </a>
-              <a href="#" className="text-midnight-300 hover:text-mint-500 transition-colors">
+              <a href={SOCIAL_LINKS.github} className="text-midnight-300 hover:text-mint-500 transition-colors" target="_blank" rel="noopener noreferrer">
                 <Github size={20} />
               </a>
             </div>
@@ -35,22 +38,22 @@ const Footer: React.FC = () => {
           <div>
             <h4 className="font-space text-lg font-medium mb-4 text-white">Services</h4>
             <ul className="space-y-2">
-              <li><a href="#" className="text-midnight-300 hover:text-mint-500 transition-colors">MVP Development</a></li>
-              <li><a href="#" className="text-midnight-300 hover:text-mint-500 transition-colors">AI Integration</a></li>
-              <li><a href="#" className="text-midnight-300 hover:text-mint-500 transition-colors">UX Design</a></li>
-              <li><a href="#" className="text-midnight-300 hover:text-mint-500 transition-colors">API Development</a></li>
-              <li><a href="#" className="text-midnight-300 hover:text-mint-500 transition-colors">Web Applications</a></li>
+              <li><Link to={ROUTE_PATHS.SERVICES} className="text-midnight-300 hover:text-mint-500 transition-colors">MVP Development</Link></li>
+              <li><Link to={ROUTE_PATHS.SERVICES} className="text-midnight-300 hover:text-mint-500 transition-colors">AI Integration</Link></li>
+              <li><Link to={ROUTE_PATHS.SERVICES} className="text-midnight-300 hover:text-mint-500 transition-colors">UX Design</Link></li>
+              <li><Link to={ROUTE_PATHS.SERVICES} className="text-midnight-300 hover:text-mint-500 transition-colors">API Development</Link></li>
+              <li><Link to={ROUTE_PATHS.SERVICES} className="text-midnight-300 hover:text-mint-500 transition-colors">Web Applications</Link></li>
             </ul>
           </div>
           
           <div>
             <h4 className="font-space text-lg font-medium mb-4 text-white">Company</h4>
             <ul className="space-y-2">
-              <li><a href="#about" className="text-midnight-300 hover:text-mint-500 transition-colors">About Us</a></li>
-              <li><a href="#portfolio" className="text-midnight-300 hover:text-mint-500 transition-colors">Portfolio</a></li>
-              <li><a href="#" className="text-midnight-300 hover:text-mint-500 transition-colors">Blog</a></li>
-              <li><a href="#" className="text-midnight-300 hover:text-mint-500 transition-colors">Careers</a></li>
-              <li><a href="#" className="text-midnight-300 hover:text-mint-500 transition-colors">Press</a></li>
+              <li><Link to={ROUTE_PATHS.ABOUT} className="text-midnight-300 hover:text-mint-500 transition-colors">About Us</Link></li>
+              <li><Link to={ROUTE_PATHS.PORTFOLIO} className="text-midnight-300 hover:text-mint-500 transition-colors">Portfolio</Link></li>
+              <li><Link to={ROUTE_PATHS.BLOG} className="text-midnight-300 hover:text-mint-500 transition-colors">Blog</Link></li>
+              <li><Link to={ROUTE_PATHS.ABOUT} className="text-midnight-300 hover:text-mint-500 transition-colors">Careers</Link></li>
+              <li><Link to={ROUTE_PATHS.ABOUT} className="text-midnight-300 hover:text-mint-500 transition-colors">Press</Link></li>
             </ul>
           </div>
           
@@ -59,17 +62,20 @@ const Footer: React.FC = () => {
             <ul className="space-y-3">
               <li className="flex items-start">
                 <Mail size={18} className="mr-2 mt-1 text-mint-500" />
-                <span className="text-midnight-300">hello@anora.tech</span>
+                <a href={`mailto:${CONTACT_INFO.email}`} className="text-midnight-300 hover:text-mint-500 transition-colors">
+                  {CONTACT_INFO.email}
+                </a>
               </li>
               <li className="flex items-start">
                 <Phone size={18} className="mr-2 mt-1 text-mint-500" />
-                <span className="text-midnight-300">+1 (555) 123-4567</span>
+                <a href={`tel:${CONTACT_INFO.phone}`} className="text-midnight-300 hover:text-mint-500 transition-colors">
+                  {CONTACT_INFO.phone}
+                </a>
               </li>
               <li className="flex items-start">
                 <MapPin size={18} className="mr-2 mt-1 text-mint-500" />
                 <span className="text-midnight-300">
-                  123 Innovation Way<br />
-                  San Francisco, CA 94107
+                  {CONTACT_INFO.address}
                 </span>
               </li>
             </ul>
@@ -81,9 +87,9 @@ const Footer: React.FC = () => {
             &copy; {currentYear} AnoraTech. All rights reserved.
           </p>
           <div className="flex space-x-6">
-            <a href="#" className="text-midnight-400 hover:text-mint-500 text-sm transition-colors">Privacy Policy</a>
-            <a href="#" className="text-midnight-400 hover:text-mint-500 text-sm transition-colors">Terms of Service</a>
-            <a href="#" className="text-midnight-400 hover:text-mint-500 text-sm transition-colors">Sitemap</a>
+            <Link to={ROUTE_PATHS.ABOUT} className="text-midnight-400 hover:text-mint-500 text-sm transition-colors">Privacy Policy</Link>
+            <Link to={ROUTE_PATHS.ABOUT} className="text-midnight-400 hover:text-mint-500 text-sm transition-colors">Terms of Service</Link>
+            <Link to={ROUTE_PATHS.ABOUT} className="text-midnight-400 hover:text-mint-500 text-sm transition-colors">Sitemap</Link>
           </div>
         </div>
       </div>
