@@ -10,6 +10,8 @@ export const ROUTE_PATHS = {
   ABOUT: ROUTES.ABOUT,
   CONTACT: ROUTES.CONTACT,
   FAQ: ROUTES.FAQ,
+  // Test routes
+  EMAIL_TEST: '/email-test',
   // Detail routes
   SERVICE_DETAILS: '/services/:serviceSlug',
   PORTFOLIO_DETAILS: '/portfolio/:projectSlug',

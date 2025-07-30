@@ -4,19 +4,71 @@ import Container from '../ui/Container';
 import Card from '../ui/Card';
 import Button from '../ui/Button';
 import { CONTACT_INFO } from '../../constants';
+import { sendContactFormEmail, sendThankYouEmail, isResendConfigured } from '../../lib/email';
+import { useToast } from '../ui/ToastContext';
 
 const ContactForm: React.FC = () => {
+  const { showToast } = useToast();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     company: '',
     message: ''
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission
-    console.log('Form submitted:', formData);
+    console.log('Form submitted with data:', formData);
+    setIsSubmitting(true);
+
+    try {
+      console.log('Sending contact form email...');
+      // Send contact form email to admin
+      await sendContactFormEmail({
+        name: formData.name,
+        email: formData.email,
+        subject: `Contact from ${formData.company || 'Website'}`,
+        message: formData.message,
+      });
+      console.log('Contact form email sent successfully');
+
+      console.log('Sending thank you email...');
+      // Send thank you email to user
+      await sendThankYouEmail({
+        email: formData.email,
+        name: formData.name,
+        type: 'contact',
+      });
+      console.log('Thank you email sent successfully');
+
+      setFormData({ name: '', email: '', company: '', message: '' });
+      console.log('Form submission completed successfully');
+      
+      // Show success toast
+      showToast({
+        type: 'success',
+        title: 'Message Sent Successfully!',
+        message: 'We\'ve received your message and will get back to you soon.',
+        duration: 5000
+      });
+    } catch (error) {
+      console.error('Error sending email:', error);
+      
+      // Show error toast
+      const errorMessage = !isResendConfigured() 
+        ? 'Email service not configured. Please set up your API key.'
+        : 'Failed to send message. Please try again or contact us directly.';
+      
+      showToast({
+        type: 'error',
+        title: 'Failed to Send Message',
+        message: errorMessage,
+        duration: 7000
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -139,10 +191,17 @@ const ContactForm: React.FC = () => {
                 />
               </div>
 
-              <Button type="submit" variant="primary" className="w-full">
+              <Button 
+                type="submit" 
+                variant="primary" 
+                className="w-full"
+                disabled={isSubmitting}
+              >
                 <Send className="w-4 h-4 mr-2" />
-                Send Message
+                {isSubmitting ? 'Sending...' : 'Send Message'}
               </Button>
+
+
             </form>
           </Card>
         </div>
