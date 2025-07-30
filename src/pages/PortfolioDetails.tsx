@@ -1,5 +1,7 @@
+import React from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowLeft, ExternalLink, Github, Calendar, Users, Code, Smartphone, Globe, Database, Cloud, Check } from 'lucide-react';
+import SEO from '../components/ui/SEO';
 import Container from '../components/ui/Container';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
@@ -141,17 +143,25 @@ const PortfolioDetails: React.FC = () => {
 
   if (!project) {
     return (
-      <main className="pt-20">
-        <Container>
-          <div className="text-center py-20">
-            <h1 className="text-3xl font-bold text-midnight-900 mb-4">Project Not Found</h1>
-            <p className="text-midnight-600 mb-8">The project you're looking for doesn't exist.</p>
-            <Link to="/portfolio" className="text-mint-600 hover:text-mint-700 font-medium">
-              ← Back to Portfolio
-            </Link>
-          </div>
-        </Container>
-      </main>
+      <>
+        <SEO
+          title="Project Not Found"
+          description="The project you're looking for doesn't exist."
+          url="/portfolio/not-found"
+          type="website"
+        />
+        <main className="pt-20">
+          <Container>
+            <div className="text-center py-20">
+              <h1 className="text-3xl font-bold text-midnight-900 mb-4">Project Not Found</h1>
+              <p className="text-midnight-600 mb-8">The project you're looking for doesn't exist.</p>
+              <Link to="/portfolio" className="text-mint-600 hover:text-mint-700 font-medium">
+                ← Back to Portfolio
+              </Link>
+            </div>
+          </Container>
+        </main>
+      </>
     );
   }
 
@@ -166,224 +176,243 @@ const PortfolioDetails: React.FC = () => {
   };
 
   return (
-    <main className="pt-20">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-midnight-900 to-mint-600 text-white py-20">
-        <Container>
-          <div className="max-w-4xl mx-auto">
-            <Link to="/portfolio" className="inline-flex items-center text-mint-100 hover:text-white mb-6 transition-colors">
-              <ArrowLeft size={16} className="mr-2" />
-              Back to Portfolio
-            </Link>
-            
-            <div className="mb-8">
-              <div className="flex items-center gap-2 mb-4">
-                <span className="text-sm text-mint-100 bg-mint-600 px-3 py-1 rounded-full">
-                  {project.tag}
-                </span>
-              </div>
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                {project.title}
-              </h1>
-              <p className="text-xl text-mint-100 mb-8">
-                {project.description}
-              </p>
+    <>
+      <SEO
+        title={`${project.title} - Portfolio Project`}
+        description={project.description}
+        keywords={[
+          project.title.toLowerCase().replace(' ', '-'),
+          project.tag.toLowerCase(),
+          'portfolio',
+          'case study',
+          'web development',
+          'mobile development',
+          'project',
+          'client work'
+        ]}
+        url={`/portfolio/${projectSlug}`}
+        type="website"
+        image={project.image}
+      />
+      <main className="pt-20">
+        {/* Hero Section */}
+        <section className="bg-gradient-to-br from-midnight-900 to-mint-600 text-white py-20">
+          <Container>
+            <div className="max-w-4xl mx-auto">
+              <Link to="/portfolio" className="inline-flex items-center text-mint-100 hover:text-white mb-6 transition-colors">
+                <ArrowLeft size={16} className="mr-2" />
+                Back to Portfolio
+              </Link>
               
-              <div className="flex flex-wrap items-center gap-6 text-mint-100">
-                <div className="flex items-center gap-2">
-                  <Users size={16} />
-                  <span>Team: {project.teamSize} people</span>
+              <div className="mb-8">
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="text-sm text-mint-100 bg-mint-600 px-3 py-1 rounded-full">
+                    {project.tag}
+                  </span>
                 </div>
-                <div className="flex items-center gap-2">
-                  <Calendar size={16} />
-                  <span>Duration: {project.duration}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Globe size={16} />
-                  <span>Client: {project.client}</span>
+                <h1 className="text-4xl md:text-5xl font-bold mb-6">
+                  {project.title}
+                </h1>
+                <p className="text-xl text-mint-100 mb-8">
+                  {project.description}
+                </p>
+                
+                <div className="flex flex-wrap items-center gap-6 text-mint-100">
+                  <div className="flex items-center gap-2">
+                    <Users size={16} />
+                    <span>Team: {project.teamSize} people</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Calendar size={16} />
+                    <span>Duration: {project.duration}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Globe size={16} />
+                    <span>Client: {project.client}</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </Container>
-      </section>
+          </Container>
+        </section>
 
-      {/* Project Images */}
-      <section className="py-20">
-        <Container>
-          <div className="max-w-6xl mx-auto">
-            <h2 className="text-3xl font-bold text-midnight-900 mb-12 text-center">
-              Project Gallery
-            </h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {project.images.map((image, index) => (
-                <div key={index} className="group">
-                  <img
-                    src={image}
-                    alt={`${project.title} - Image ${index + 1}`}
-                    className="w-full h-64 object-cover rounded-lg shadow-lg group-hover:shadow-xl transition-shadow duration-300"
-                  />
-                </div>
-              ))}
+        {/* Project Images */}
+        <section className="py-20">
+          <Container>
+            <div className="max-w-6xl mx-auto">
+              <h2 className="text-3xl font-bold text-midnight-900 mb-12 text-center">
+                Project Gallery
+              </h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {project.images.map((image, index) => (
+                  <div key={index} className="group">
+                    <img
+                      src={image}
+                      alt={`${project.title} - Image ${index + 1}`}
+                      className="w-full h-64 object-cover rounded-lg shadow-lg group-hover:shadow-xl transition-shadow duration-300"
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
-          </div>
-        </Container>
-      </section>
+          </Container>
+        </section>
 
-      {/* Project Details */}
-      <section className="py-20 bg-midnight-50">
-        <Container>
-          <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-              {/* Main Content */}
-              <div className="lg:col-span-2">
-                <Card className="mb-8">
-                  <h3 className="text-2xl font-bold text-midnight-900 mb-6">Project Overview</h3>
-                  <p className="text-lg text-midnight-700 leading-relaxed">
-                    {project.fullDescription}
-                  </p>
-                </Card>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {/* Challenges */}
-                  <Card>
-                    <h4 className="text-xl font-bold text-midnight-900 mb-4">Challenges</h4>
-                    <ul className="space-y-3">
-                      {project.challenges.map((challenge, index) => (
-                        <li key={index} className="flex items-start gap-3">
-                          <div className="w-2 h-2 bg-mint-600 rounded-full mt-2 flex-shrink-0"></div>
-                          <span className="text-midnight-700">{challenge}</span>
-                        </li>
-                      ))}
-                    </ul>
+        {/* Project Details */}
+        <section className="py-20 bg-midnight-50">
+          <Container>
+            <div className="max-w-6xl mx-auto">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                {/* Main Content */}
+                <div className="lg:col-span-2">
+                  <Card className="mb-8">
+                    <h3 className="text-2xl font-bold text-midnight-900 mb-6">Project Overview</h3>
+                    <p className="text-lg text-midnight-700 leading-relaxed">
+                      {project.fullDescription}
+                    </p>
                   </Card>
 
-                  {/* Solutions */}
-                  <Card>
-                    <h4 className="text-xl font-bold text-midnight-900 mb-4">Solutions</h4>
-                    <ul className="space-y-3">
-                      {project.solutions.map((solution, index) => (
-                        <li key={index} className="flex items-start gap-3">
-                          <div className="w-2 h-2 bg-mint-600 rounded-full mt-2 flex-shrink-0"></div>
-                          <span className="text-midnight-700">{solution}</span>
-                        </li>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    {/* Challenges */}
+                    <Card>
+                      <h4 className="text-xl font-bold text-midnight-900 mb-4">Challenges</h4>
+                      <ul className="space-y-3">
+                        {project.challenges.map((challenge, index) => (
+                          <li key={index} className="flex items-start gap-3">
+                            <div className="w-2 h-2 bg-mint-600 rounded-full mt-2 flex-shrink-0"></div>
+                            <span className="text-midnight-700">{challenge}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </Card>
+
+                    {/* Solutions */}
+                    <Card>
+                      <h4 className="text-xl font-bold text-midnight-900 mb-4">Solutions</h4>
+                      <ul className="space-y-3">
+                        {project.solutions.map((solution, index) => (
+                          <li key={index} className="flex items-start gap-3">
+                            <div className="w-2 h-2 bg-mint-600 rounded-full mt-2 flex-shrink-0"></div>
+                            <span className="text-midnight-700">{solution}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </Card>
+                  </div>
+
+                  {/* Results */}
+                  <Card className="mt-8">
+                    <h4 className="text-xl font-bold text-midnight-900 mb-4">Results & Impact</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {project.results.map((result, index) => (
+                        <div key={index} className="flex items-start gap-3">
+                          <div className="w-6 h-6 bg-mint-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                            <Check className="w-4 h-4 text-mint-600" />
+                          </div>
+                          <span className="text-midnight-700">{result}</span>
+                        </div>
                       ))}
-                    </ul>
+                    </div>
                   </Card>
                 </div>
 
-                {/* Results */}
-                <Card className="mt-8">
-                  <h4 className="text-xl font-bold text-midnight-900 mb-4">Results & Impact</h4>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {project.results.map((result, index) => (
-                      <div key={index} className="flex items-start gap-3">
-                        <div className="w-6 h-6 bg-mint-100 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
-                          <Check className="w-4 h-4 text-mint-600" />
+                {/* Sidebar */}
+                <div className="lg:col-span-1">
+                  {/* Technologies */}
+                  <Card className="mb-8">
+                    <h4 className="text-xl font-bold text-midnight-900 mb-4">Technologies Used</h4>
+                    <div className="space-y-3">
+                      {project.technologies.map((tech) => (
+                        <div key={tech} className="flex items-center gap-3">
+                          <div className="text-mint-600">
+                            {getTechnologyIcon(tech)}
+                          </div>
+                          <span className="text-midnight-700">{tech}</span>
                         </div>
-                        <span className="text-midnight-700">{result}</span>
+                      ))}
+                    </div>
+                  </Card>
+
+                  {/* Project Links */}
+                  <Card className="mb-8">
+                    <h4 className="text-xl font-bold text-midnight-900 mb-4">Project Links</h4>
+                    <div className="space-y-3">
+                      {project.liveUrl && (
+                        <a
+                          href={project.liveUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-3 text-mint-600 hover:text-mint-700 transition-colors"
+                        >
+                          <ExternalLink size={16} />
+                          <span>Live Demo</span>
+                        </a>
+                      )}
+                      {project.githubUrl && (
+                        <a
+                          href={project.githubUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex items-center gap-3 text-midnight-700 hover:text-midnight-900 transition-colors"
+                        >
+                          <Github size={16} />
+                          <span>View Code</span>
+                        </a>
+                      )}
+                    </div>
+                  </Card>
+
+                  {/* Project Info */}
+                  <Card>
+                    <h4 className="text-xl font-bold text-midnight-900 mb-4">Project Info</h4>
+                    <div className="space-y-4">
+                      <div>
+                        <div className="text-sm text-midnight-500 mb-1">Client</div>
+                        <div className="font-medium text-midnight-900">{project.client}</div>
                       </div>
-                    ))}
-                  </div>
-                </Card>
-              </div>
-
-              {/* Sidebar */}
-              <div className="lg:col-span-1">
-                {/* Technologies */}
-                <Card className="mb-8">
-                  <h4 className="text-xl font-bold text-midnight-900 mb-4">Technologies Used</h4>
-                  <div className="space-y-3">
-                    {project.technologies.map((tech) => (
-                      <div key={tech} className="flex items-center gap-3">
-                        <div className="text-mint-600">
-                          {getTechnologyIcon(tech)}
-                        </div>
-                        <span className="text-midnight-700">{tech}</span>
+                      <div>
+                        <div className="text-sm text-midnight-500 mb-1">Team Size</div>
+                        <div className="font-medium text-midnight-900">{project.teamSize} people</div>
                       </div>
-                    ))}
-                  </div>
-                </Card>
-
-                {/* Project Links */}
-                <Card className="mb-8">
-                  <h4 className="text-xl font-bold text-midnight-900 mb-4">Project Links</h4>
-                  <div className="space-y-3">
-                    {project.liveUrl && (
-                      <a
-                        href={project.liveUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-3 text-mint-600 hover:text-mint-700 transition-colors"
-                      >
-                        <ExternalLink size={16} />
-                        <span>Live Demo</span>
-                      </a>
-                    )}
-                    {project.githubUrl && (
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-3 text-midnight-700 hover:text-midnight-900 transition-colors"
-                      >
-                        <Github size={16} />
-                        <span>View Code</span>
-                      </a>
-                    )}
-                  </div>
-                </Card>
-
-                {/* Project Info */}
-                <Card>
-                  <h4 className="text-xl font-bold text-midnight-900 mb-4">Project Info</h4>
-                  <div className="space-y-4">
-                    <div>
-                      <div className="text-sm text-midnight-500 mb-1">Client</div>
-                      <div className="font-medium text-midnight-900">{project.client}</div>
+                      <div>
+                        <div className="text-sm text-midnight-500 mb-1">Duration</div>
+                        <div className="font-medium text-midnight-900">{project.duration}</div>
+                      </div>
+                      <div>
+                        <div className="text-sm text-midnight-500 mb-1">Category</div>
+                        <div className="font-medium text-midnight-900">{project.tag}</div>
+                      </div>
                     </div>
-                    <div>
-                      <div className="text-sm text-midnight-500 mb-1">Team Size</div>
-                      <div className="font-medium text-midnight-900">{project.teamSize} people</div>
-                    </div>
-                    <div>
-                      <div className="text-sm text-midnight-500 mb-1">Duration</div>
-                      <div className="font-medium text-midnight-900">{project.duration}</div>
-                    </div>
-                    <div>
-                      <div className="text-sm text-midnight-500 mb-1">Category</div>
-                      <div className="font-medium text-midnight-900">{project.tag}</div>
-                    </div>
-                  </div>
-                </Card>
+                  </Card>
+                </div>
               </div>
             </div>
-          </div>
-        </Container>
-      </section>
+          </Container>
+        </section>
 
-      {/* CTA Section */}
-      <section className="py-20">
-        <Container>
-          <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold text-midnight-900 mb-6">
-              Ready to Start Your Project?
-            </h2>
-            <p className="text-xl text-midnight-600 mb-8">
-              Let's create something amazing together. Get in touch to discuss your project requirements.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button href="/contact" variant="primary" size="lg">
-                Start Your Project
-              </Button>
-              <Button href="/portfolio" variant="outline" size="lg">
-                View More Projects
-              </Button>
+        {/* CTA Section */}
+        <section className="py-20">
+          <Container>
+            <div className="max-w-4xl mx-auto text-center">
+              <h2 className="text-3xl md:text-4xl font-bold text-midnight-900 mb-6">
+                Ready to Start Your Project?
+              </h2>
+              <p className="text-xl text-midnight-600 mb-8">
+                Let's create something amazing together. Get in touch to discuss your project requirements.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button href="/contact" variant="primary" size="lg">
+                  Start Your Project
+                </Button>
+                <Button href="/portfolio" variant="outline" size="lg">
+                  View More Projects
+                </Button>
+              </div>
             </div>
-          </div>
-        </Container>
-      </section>
-    </main>
+          </Container>
+        </section>
+      </main>
+    </>
   );
 };
 

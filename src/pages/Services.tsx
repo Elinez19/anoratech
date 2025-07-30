@@ -1,3 +1,5 @@
+import React from 'react';
+import SEO from '../components/ui/SEO';
 import ServicesHero from '../components/sections/ServicesHero';
 import ServicesGrid from '../components/sections/ServicesGrid';
 import ServicesCTA from '../components/sections/ServicesCTA';
@@ -28,6 +30,13 @@ const Services: React.FC = () => {
 
   return (
     <>
+      <SEO
+        title="Our Services"
+        description="Comprehensive technology solutions including web development, mobile apps, UI/UX design, digital marketing, cloud solutions, and technology consulting. Transform your business with our expert services."
+        keywords={['web development', 'mobile development', 'UI/UX design', 'digital marketing', 'cloud solutions', 'consulting', 'technology services']}
+        url="/services"
+        type="website"
+      />
       <main className="pt-20">
         <ServicesHero />
         <ServicesGrid />

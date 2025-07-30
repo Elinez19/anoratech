@@ -1,5 +1,6 @@
 import  { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import Home from './pages/Home';
@@ -32,25 +33,27 @@ function App() {
   };
 
   return (
-    <Router>
-      <div className={`${isDarkMode ? 'dark' : ''}`}>
-        <Header isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
-        <Routes>
-          <Route path={ROUTE_PATHS.HOME} element={<Home />} />
-          <Route path={ROUTE_PATHS.SERVICES} element={<Services />} />
-          <Route path={ROUTE_PATHS.SERVICE_DETAILS} element={<ServiceDetails />} />
-          <Route path={ROUTE_PATHS.PORTFOLIO} element={<Portfolio />} />
-          <Route path={ROUTE_PATHS.PORTFOLIO_DETAILS} element={<PortfolioDetails />} />
-          <Route path={ROUTE_PATHS.BLOG} element={<Blog />} />
-          <Route path={ROUTE_PATHS.BLOG_DETAILS} element={<BlogDetails />} />
-          <Route path={ROUTE_PATHS.TESTIMONIALS} element={<Testimonials />} />
-          <Route path={ROUTE_PATHS.ABOUT} element={<About />} />
-          <Route path={ROUTE_PATHS.CONTACT} element={<Contact />} />
-          <Route path={ROUTE_PATHS.FAQ} element={<FAQ />} />
-        </Routes>
-        <Footer />
-      </div>
-    </Router>
+    <HelmetProvider>
+      <Router>
+        <div className={`${isDarkMode ? 'dark' : ''}`}>
+          <Header isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+          <Routes>
+            <Route path={ROUTE_PATHS.HOME} element={<Home />} />
+            <Route path={ROUTE_PATHS.SERVICES} element={<Services />} />
+            <Route path={ROUTE_PATHS.SERVICE_DETAILS} element={<ServiceDetails />} />
+            <Route path={ROUTE_PATHS.PORTFOLIO} element={<Portfolio />} />
+            <Route path={ROUTE_PATHS.PORTFOLIO_DETAILS} element={<PortfolioDetails />} />
+            <Route path={ROUTE_PATHS.BLOG} element={<Blog />} />
+            <Route path={ROUTE_PATHS.BLOG_DETAILS} element={<BlogDetails />} />
+            <Route path={ROUTE_PATHS.TESTIMONIALS} element={<Testimonials />} />
+            <Route path={ROUTE_PATHS.ABOUT} element={<About />} />
+            <Route path={ROUTE_PATHS.CONTACT} element={<Contact />} />
+            <Route path={ROUTE_PATHS.FAQ} element={<FAQ />} />
+          </Routes>
+          <Footer />
+        </div>
+      </Router>
+    </HelmetProvider>
   );
 }
 

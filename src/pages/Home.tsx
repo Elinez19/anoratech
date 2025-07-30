@@ -1,4 +1,6 @@
 
+import React from 'react';
+import SEO from '../components/ui/SEO';
 import Hero from '../components/sections/Hero';
 import Features from '../components/sections/Features';
 import Portfolio from '../components/sections/Portfolio';
@@ -51,6 +53,13 @@ const Home: React.FC = () => {
 
   return (
     <>
+      <SEO
+        title="AnoraTech - AI-Powered MVPs"
+        description="Leading technology company specializing in web development, mobile applications, and digital solutions. Transform your ideas into reality with our expert team."
+        keywords={['web development', 'mobile apps', 'AI', 'technology', 'digital solutions', 'MVP', 'startup', 'consulting']}
+        url="/"
+        type="website"
+      />
       <main>
         <Hero />
         <Features />

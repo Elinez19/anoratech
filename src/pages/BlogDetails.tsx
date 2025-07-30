@@ -1,6 +1,7 @@
-import  { useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Calendar, User, ArrowLeft, Share2, Bookmark, MessageCircle, Send } from 'lucide-react';
+import SEO from '../components/ui/SEO';
 import Container from '../components/ui/Container';
 import Card from '../components/ui/Card';
 import { BlogPost } from '../types';
@@ -170,298 +171,313 @@ const BlogDetails: React.FC = () => {
   };
 
   return (
-    <main className="pt-20">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-midnight-900 to-mint-600 text-white py-20">
-        <Container>
-          <div className="max-w-4xl mx-auto">
-            <Link to="/blog" className="inline-flex items-center text-mint-100 hover:text-white mb-6 transition-colors">
-              <ArrowLeft size={16} className="mr-2" />
-              Back to Blog
-            </Link>
-            
-            <div className="mb-8">
-              <div className="flex flex-wrap gap-2 mb-4">
-                {blogPost.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-xs bg-mint-600 text-white px-3 py-1 rounded-full"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-              <h1 className="text-4xl md:text-5xl font-bold mb-6">
-                {blogPost.title}
-              </h1>
-              <p className="text-xl text-mint-100 mb-8">
-                {blogPost.excerpt}
-              </p>
+    <>
+      <SEO
+        title={blogPost.title}
+        description={blogPost.excerpt}
+        keywords={[...blogPost.tags, 'web development', 'technology', 'trends', 'blog', 'article']}
+        url={`/blog/${blogPost.slug}`}
+        type="article"
+        author={blogPost.author}
+        publishedTime={blogPost.date}
+        modifiedTime={blogPost.date}
+        section="Technology"
+        tags={blogPost.tags}
+        image={blogPost.image}
+      />
+      <main className="pt-20">
+        {/* Hero Section */}
+        <section className="bg-gradient-to-br from-midnight-900 to-mint-600 text-white py-20">
+          <Container>
+            <div className="max-w-4xl mx-auto">
+              <Link to="/blog" className="inline-flex items-center text-mint-100 hover:text-white mb-6 transition-colors">
+                <ArrowLeft size={16} className="mr-2" />
+                Back to Blog
+              </Link>
               
-              <div className="flex items-center gap-6 text-mint-100">
-                <div className="flex items-center gap-2">
-                  <User size={16} />
-                  <span>{blogPost.author}</span>
+              <div className="mb-8">
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {blogPost.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="text-xs bg-mint-600 text-white px-3 py-1 rounded-full"
+                    >
+                      {tag}
+                    </span>
+                  ))}
                 </div>
-                <div className="flex items-center gap-2">
-                  <Calendar size={16} />
-                  <span>{new Date(blogPost.date).toLocaleDateString()}</span>
+                <h1 className="text-4xl md:text-5xl font-bold mb-6">
+                  {blogPost.title}
+                </h1>
+                <p className="text-xl text-mint-100 mb-8">
+                  {blogPost.excerpt}
+                </p>
+                
+                <div className="flex items-center gap-6 text-mint-100">
+                  <div className="flex items-center gap-2">
+                    <User size={16} />
+                    <span>{blogPost.author}</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <Calendar size={16} />
+                    <span>{new Date(blogPost.date).toLocaleDateString()}</span>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </Container>
-      </section>
+          </Container>
+        </section>
 
-      {/* Article Content */}
-      <section className="py-20">
-        <Container>
-          <div className="max-w-4xl mx-auto">
-            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-              {/* Main Content */}
-              <div className="lg:col-span-3">
-                <Card className="mb-8">
-                  <img
-                    src={blogPost.image}
-                    alt={blogPost.title}
-                    className="w-full h-64 md:h-80 object-cover rounded-lg mb-8"
-                  />
-                  <div 
-                    className="prose prose-lg max-w-none"
-                    dangerouslySetInnerHTML={{ __html: blogPost.content }}
-                  />
-                </Card>
+        {/* Article Content */}
+        <section className="py-20">
+          <Container>
+            <div className="max-w-4xl mx-auto">
+              <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+                {/* Main Content */}
+                <div className="lg:col-span-3">
+                  <Card className="mb-8">
+                    <img
+                      src={blogPost.image}
+                      alt={blogPost.title}
+                      className="w-full h-64 md:h-80 object-cover rounded-lg mb-8"
+                    />
+                    <div 
+                      className="prose prose-lg max-w-none"
+                      dangerouslySetInnerHTML={{ __html: blogPost.content }}
+                    />
+                  </Card>
 
-                {/* Article Actions */}
-                <div className="flex items-center justify-between py-6 border-t border-midnight-100">
-                  <div className="flex items-center gap-4">
-                    <button className="flex items-center gap-2 text-midnight-600 hover:text-mint-600 transition-colors">
-                      <Share2 size={16} />
-                      Share
-                    </button>
-                    <button className="flex items-center gap-2 text-midnight-600 hover:text-mint-600 transition-colors">
-                      <Bookmark size={16} />
-                      Bookmark
-                    </button>
-                  </div>
-                  <Link to="/blog" className="text-mint-600 hover:text-mint-700 font-medium">
-                    ← Back to Blog
-                  </Link>
-                </div>
-
-                {/* Comments Section */}
-                <Card className="mt-8">
-                  <div className="flex items-center gap-2 mb-6">
-                    <MessageCircle size={20} className="text-mint-600" />
-                    <h3 className="text-xl font-bold text-midnight-900">
-                      Comments ({comments.length})
-                    </h3>
-                  </div>
-
-                  {/* Comment Form */}
-                  <form onSubmit={handleSubmitComment} className="mb-8">
-                    <div className="flex gap-4">
-                      <img
-                        src="https://images.unsplash.com/photo-1535713875002-d1d0c3778df9?w=50&h=50&fit=crop&crop=face"
-                        alt="Your avatar"
-                        className="w-10 h-10 rounded-full object-cover"
-                      />
-                      <div className="flex-1">
-                        <textarea
-                          value={newComment}
-                          onChange={(e) => setNewComment(e.target.value)}
-                          placeholder="Share your thoughts..."
-                          className="w-full px-4 py-3 border border-midnight-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-transparent resize-none"
-                          rows={3}
-                        />
-                        <div className="flex justify-end mt-3">
-                          <button
-                            type="submit"
-                            disabled={!newComment.trim()}
-                            className="flex items-center gap-2 px-4 py-2 bg-mint-600 text-white rounded-lg hover:bg-mint-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                          >
-                            <Send size={16} />
-                            Post Comment
-                          </button>
-                        </div>
-                      </div>
+                  {/* Article Actions */}
+                  <div className="flex items-center justify-between py-6 border-t border-midnight-100">
+                    <div className="flex items-center gap-4">
+                      <button className="flex items-center gap-2 text-midnight-600 hover:text-mint-600 transition-colors">
+                        <Share2 size={16} />
+                        Share
+                      </button>
+                      <button className="flex items-center gap-2 text-midnight-600 hover:text-mint-600 transition-colors">
+                        <Bookmark size={16} />
+                        Bookmark
+                      </button>
                     </div>
-                  </form>
+                    <Link to="/blog" className="text-mint-600 hover:text-mint-700 font-medium">
+                      ← Back to Blog
+                    </Link>
+                  </div>
 
-                  {/* Comments List */}
-                  <div className="space-y-6">
-                    {comments.map((comment) => (
-                      <div key={comment.id} className="border-b border-midnight-100 pb-6 last:border-b-0">
-                        <div className="flex gap-4">
-                          <img
-                            src={comment.avatar}
-                            alt={comment.author}
-                            className="w-10 h-10 rounded-full object-cover"
+                  {/* Comments Section */}
+                  <Card className="mt-8">
+                    <div className="flex items-center gap-2 mb-6">
+                      <MessageCircle size={20} className="text-mint-600" />
+                      <h3 className="text-xl font-bold text-midnight-900">
+                        Comments ({comments.length})
+                      </h3>
+                    </div>
+
+                    {/* Comment Form */}
+                    <form onSubmit={handleSubmitComment} className="mb-8">
+                      <div className="flex gap-4">
+                        <img
+                          src="https://images.unsplash.com/photo-1535713875002-d1d0c3778df9?w=50&h=50&fit=crop&crop=face"
+                          alt="Your avatar"
+                          className="w-10 h-10 rounded-full object-cover"
+                        />
+                        <div className="flex-1">
+                          <textarea
+                            value={newComment}
+                            onChange={(e) => setNewComment(e.target.value)}
+                            placeholder="Share your thoughts..."
+                            className="w-full px-4 py-3 border border-midnight-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-transparent resize-none"
+                            rows={3}
                           />
-                          <div className="flex-1">
-                            <div className="flex items-center gap-2 mb-2">
-                              <span className="font-semibold text-midnight-900">{comment.author}</span>
-                              <span className="text-sm text-midnight-500">{formatDate(comment.date)}</span>
-                            </div>
-                            <p className="text-midnight-700 mb-3">{comment.content}</p>
+                          <div className="flex justify-end mt-3">
                             <button
-                              onClick={() => setShowReplyForm({ ...showReplyForm, [comment.id]: !showReplyForm[comment.id] })}
-                              className="text-sm text-mint-600 hover:text-mint-700 font-medium"
+                              type="submit"
+                              disabled={!newComment.trim()}
+                              className="flex items-center gap-2 px-4 py-2 bg-mint-600 text-white rounded-lg hover:bg-mint-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                             >
-                              Reply
+                              <Send size={16} />
+                              Post Comment
                             </button>
-
-                            {/* Reply Form */}
-                            {showReplyForm[comment.id] && (
-                              <div className="mt-4 ml-4">
-                                <div className="flex gap-4">
-                                  <img
-                                    src="https://images.unsplash.com/photo-1535713875002-d1d0c3778df9?w=50&h=50&fit=crop&crop=face"
-                                    alt="Your avatar"
-                                    className="w-8 h-8 rounded-full object-cover"
-                                  />
-                                  <div className="flex-1">
-                                    <textarea
-                                      value={newReply[comment.id] || ''}
-                                      onChange={(e) => setNewReply({ ...newReply, [comment.id]: e.target.value })}
-                                      placeholder="Write a reply..."
-                                      className="w-full px-3 py-2 border border-midnight-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-transparent resize-none text-sm"
-                                      rows={2}
-                                    />
-                                    <div className="flex gap-2 mt-2">
-                                      <button
-                                        onClick={() => handleSubmitReply(comment.id)}
-                                        disabled={!newReply[comment.id]?.trim()}
-                                        className="flex items-center gap-1 px-3 py-1 bg-mint-600 text-white rounded text-sm hover:bg-mint-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-                                      >
-                                        <Send size={12} />
-                                        Reply
-                                      </button>
-                                      <button
-                                        onClick={() => setShowReplyForm({ ...showReplyForm, [comment.id]: false })}
-                                        className="px-3 py-1 text-midnight-600 hover:text-midnight-800 text-sm transition-colors"
-                                      >
-                                        Cancel
-                                      </button>
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            )}
-
-                            {/* Replies */}
-                            {comment.replies.length > 0 && (
-                              <div className="mt-4 ml-4 space-y-4">
-                                {comment.replies.map((reply) => (
-                                  <div key={reply.id} className="flex gap-4">
-                                    <img
-                                      src={reply.avatar}
-                                      alt={reply.author}
-                                      className="w-8 h-8 rounded-full object-cover"
-                                    />
-                                    <div className="flex-1">
-                                      <div className="flex items-center gap-2 mb-1">
-                                        <span className="font-semibold text-midnight-900 text-sm">{reply.author}</span>
-                                        <span className="text-xs text-midnight-500">{formatDate(reply.date)}</span>
-                                      </div>
-                                      <p className="text-midnight-700 text-sm">{reply.content}</p>
-                                    </div>
-                                  </div>
-                                ))}
-                              </div>
-                            )}
                           </div>
                         </div>
                       </div>
-                    ))}
-                  </div>
-                </Card>
-              </div>
+                    </form>
 
-              {/* Sidebar */}
-              <div className="lg:col-span-1">
-                <Card className="mb-8">
-                  <h3 className="text-lg font-bold text-midnight-900 mb-4">About the Author</h3>
-                  <div className="flex items-center gap-3 mb-4">
-                    <img
-                      src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face"
-                      alt={blogPost.author}
-                      className="w-12 h-12 rounded-full object-cover"
-                    />
-                    <div>
-                      <div className="font-semibold text-midnight-900">{blogPost.author}</div>
-                      <div className="text-sm text-midnight-600">Senior Developer</div>
+                    {/* Comments List */}
+                    <div className="space-y-6">
+                      {comments.map((comment) => (
+                        <div key={comment.id} className="border-b border-midnight-100 pb-6 last:border-b-0">
+                          <div className="flex gap-4">
+                            <img
+                              src={comment.avatar}
+                              alt={comment.author}
+                              className="w-10 h-10 rounded-full object-cover"
+                            />
+                            <div className="flex-1">
+                              <div className="flex items-center gap-2 mb-2">
+                                <span className="font-semibold text-midnight-900">{comment.author}</span>
+                                <span className="text-sm text-midnight-500">{formatDate(comment.date)}</span>
+                              </div>
+                              <p className="text-midnight-700 mb-3">{comment.content}</p>
+                              <button
+                                onClick={() => setShowReplyForm({ ...showReplyForm, [comment.id]: !showReplyForm[comment.id] })}
+                                className="text-sm text-mint-600 hover:text-mint-700 font-medium"
+                              >
+                                Reply
+                              </button>
+
+                              {/* Reply Form */}
+                              {showReplyForm[comment.id] && (
+                                <div className="mt-4 ml-4">
+                                  <div className="flex gap-4">
+                                    <img
+                                      src="https://images.unsplash.com/photo-1535713875002-d1d0c3778df9?w=50&h=50&fit=crop&crop=face"
+                                      alt="Your avatar"
+                                      className="w-8 h-8 rounded-full object-cover"
+                                    />
+                                    <div className="flex-1">
+                                      <textarea
+                                        value={newReply[comment.id] || ''}
+                                        onChange={(e) => setNewReply({ ...newReply, [comment.id]: e.target.value })}
+                                        placeholder="Write a reply..."
+                                        className="w-full px-3 py-2 border border-midnight-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-mint-500 focus:border-transparent resize-none text-sm"
+                                        rows={2}
+                                      />
+                                      <div className="flex gap-2 mt-2">
+                                        <button
+                                          onClick={() => handleSubmitReply(comment.id)}
+                                          disabled={!newReply[comment.id]?.trim()}
+                                          className="flex items-center gap-1 px-3 py-1 bg-mint-600 text-white rounded text-sm hover:bg-mint-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                                        >
+                                          <Send size={12} />
+                                          Reply
+                                        </button>
+                                        <button
+                                          onClick={() => setShowReplyForm({ ...showReplyForm, [comment.id]: false })}
+                                          className="px-3 py-1 text-midnight-600 hover:text-midnight-800 text-sm transition-colors"
+                                        >
+                                          Cancel
+                                        </button>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              )}
+
+                              {/* Replies */}
+                              {comment.replies.length > 0 && (
+                                <div className="mt-4 ml-4 space-y-4">
+                                  {comment.replies.map((reply) => (
+                                    <div key={reply.id} className="flex gap-4">
+                                      <img
+                                        src={reply.avatar}
+                                        alt={reply.author}
+                                        className="w-8 h-8 rounded-full object-cover"
+                                      />
+                                      <div className="flex-1">
+                                        <div className="flex items-center gap-2 mb-1">
+                                          <span className="font-semibold text-midnight-900 text-sm">{reply.author}</span>
+                                          <span className="text-xs text-midnight-500">{formatDate(reply.date)}</span>
+                                        </div>
+                                        <p className="text-midnight-700 text-sm">{reply.content}</p>
+                                      </div>
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      ))}
                     </div>
-                  </div>
-                  <p className="text-sm text-midnight-600">
-                    Sarah is a senior developer with over 10 years of experience in web development and emerging technologies.
-                  </p>
-                </Card>
+                  </Card>
+                </div>
 
-                <Card>
-                  <h3 className="text-lg font-bold text-midnight-900 mb-4">Tags</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {blogPost.tags.map((tag) => (
-                      <Link
-                        key={tag}
-                        to={`/blog?tag=${tag}`}
-                        className="text-xs bg-mint-50 text-mint-600 px-3 py-1 rounded-full hover:bg-mint-100 transition-colors"
-                      >
-                        {tag}
-                      </Link>
-                    ))}
-                  </div>
-                </Card>
-              </div>
-            </div>
-          </div>
-        </Container>
-      </section>
-
-      {/* Related Posts */}
-      <section className="bg-midnight-50 py-20">
-        <Container>
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl font-bold text-midnight-900 mb-8">Related Posts</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {relatedPosts.map((post) => (
-                <Card key={post.id} className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
-                  <img
-                    src={post.image}
-                    alt={post.title}
-                    className="w-full h-48 object-cover"
-                  />
-                  <div className="p-6">
-                    <div className="flex items-center gap-4 text-sm text-midnight-500 mb-3">
-                      <div className="flex items-center gap-1">
-                        <Calendar size={14} />
-                        {new Date(post.date).toLocaleDateString()}
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <User size={14} />
-                        {post.author}
+                {/* Sidebar */}
+                <div className="lg:col-span-1">
+                  <Card className="mb-8">
+                    <h3 className="text-lg font-bold text-midnight-900 mb-4">About the Author</h3>
+                    <div className="flex items-center gap-3 mb-4">
+                      <img
+                        src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=100&h=100&fit=crop&crop=face"
+                        alt={blogPost.author}
+                        className="w-12 h-12 rounded-full object-cover"
+                      />
+                      <div>
+                        <div className="font-semibold text-midnight-900">{blogPost.author}</div>
+                        <div className="text-sm text-midnight-600">Senior Developer</div>
                       </div>
                     </div>
-                    <h3 className="text-xl font-bold text-midnight-900 mb-3">
-                      {post.title}
-                    </h3>
-                    <p className="text-midnight-600 mb-4">
-                      {post.excerpt}
+                    <p className="text-sm text-midnight-600">
+                      Sarah is a senior developer with over 10 years of experience in web development and emerging technologies.
                     </p>
-                    <Link
-                      to={`/blog/${post.slug}`}
-                      className="text-mint-600 hover:text-mint-700 font-medium"
-                    >
-                      Read More →
-                    </Link>
-                  </div>
-                </Card>
-              ))}
+                  </Card>
+
+                  <Card>
+                    <h3 className="text-lg font-bold text-midnight-900 mb-4">Tags</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {blogPost.tags.map((tag) => (
+                        <Link
+                          key={tag}
+                          to={`/blog?tag=${tag}`}
+                          className="text-xs bg-mint-50 text-mint-600 px-3 py-1 rounded-full hover:bg-mint-100 transition-colors"
+                        >
+                          {tag}
+                        </Link>
+                      ))}
+                    </div>
+                  </Card>
+                </div>
+              </div>
             </div>
-          </div>
-        </Container>
-      </section>
-    </main>
+          </Container>
+        </section>
+
+        {/* Related Posts */}
+        <section className="bg-midnight-50 py-20">
+          <Container>
+            <div className="max-w-4xl mx-auto">
+              <h2 className="text-3xl font-bold text-midnight-900 mb-8">Related Posts</h2>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {relatedPosts.map((post) => (
+                  <Card key={post.id} className="overflow-hidden hover:shadow-xl transition-shadow duration-300">
+                    <img
+                      src={post.image}
+                      alt={post.title}
+                      className="w-full h-48 object-cover"
+                    />
+                    <div className="p-6">
+                      <div className="flex items-center gap-4 text-sm text-midnight-500 mb-3">
+                        <div className="flex items-center gap-1">
+                          <Calendar size={14} />
+                          {new Date(post.date).toLocaleDateString()}
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <User size={14} />
+                          {post.author}
+                        </div>
+                      </div>
+                      <h3 className="text-xl font-bold text-midnight-900 mb-3">
+                        {post.title}
+                      </h3>
+                      <p className="text-midnight-600 mb-4">
+                        {post.excerpt}
+                      </p>
+                      <Link
+                        to={`/blog/${post.slug}`}
+                        className="text-mint-600 hover:text-mint-700 font-medium"
+                      >
+                        Read More →
+                      </Link>
+                    </div>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </Container>
+        </section>
+      </main>
+    </>
   );
 };
 
