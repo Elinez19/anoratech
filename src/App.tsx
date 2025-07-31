@@ -15,7 +15,6 @@ import Testimonials from './pages/Testimonials';
 import About from './pages/About';
 import Contact from './pages/Contact';
 import FAQ from './pages/FAQ';
-import EmailTestPage from './pages/EmailTestPage';
 import { ROUTE_PATHS } from './routes';
 
 function App() {
@@ -52,7 +51,6 @@ function App() {
               <Route path={ROUTE_PATHS.ABOUT} element={<About />} />
               <Route path={ROUTE_PATHS.CONTACT} element={<Contact />} />
               <Route path={ROUTE_PATHS.FAQ} element={<FAQ />} />
-              <Route path={ROUTE_PATHS.EMAIL_TEST} element={<EmailTestPage />} />
             </Routes>
             <Footer />
           </div>

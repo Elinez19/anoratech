@@ -4,7 +4,6 @@ import Container from '../ui/Container';
 import Card from '../ui/Card';
 import Button from '../ui/Button';
 import { CONTACT_INFO } from '../../constants';
-import { sendContactFormEmail, sendThankYouEmail, isResendConfigured } from '../../lib/email';
 import { useToast } from '../ui/ToastContext';
 
 const ContactForm: React.FC = () => {
@@ -23,25 +22,9 @@ const ContactForm: React.FC = () => {
     setIsSubmitting(true);
 
     try {
-      console.log('Sending contact form email...');
-      // Send contact form email to admin
-      await sendContactFormEmail({
-        name: formData.name,
-        email: formData.email,
-        subject: `Contact from ${formData.company || 'Website'}`,
-        message: formData.message,
-      });
-      console.log('Contact form email sent successfully');
-
-      console.log('Sending thank you email...');
-      // Send thank you email to user
-      await sendThankYouEmail({
-        email: formData.email,
-        name: formData.name,
-        type: 'contact',
-      });
-      console.log('Thank you email sent successfully');
-
+      // Simulate form submission delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
+      
       setFormData({ name: '', email: '', company: '', message: '' });
       console.log('Form submission completed successfully');
       
@@ -53,17 +36,13 @@ const ContactForm: React.FC = () => {
         duration: 5000
       });
     } catch (error) {
-      console.error('Error sending email:', error);
+      console.error('Error submitting form:', error);
       
       // Show error toast
-      const errorMessage = !isResendConfigured() 
-        ? 'Email service not configured. Please set up your API key.'
-        : 'Failed to send message. Please try again or contact us directly.';
-      
       showToast({
         type: 'error',
         title: 'Failed to Send Message',
-        message: errorMessage,
+        message: 'Failed to send message. Please try again or contact us directly.',
         duration: 7000
       });
     } finally {
