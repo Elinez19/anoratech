@@ -18,6 +18,8 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import FAQ from './pages/FAQ';
 import { ROUTE_PATHS } from './routes';
+import CrispChat from './components/ui/CrispChat';
+import { CHAT_CONFIG } from './constants';
 
 function App() {
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -57,6 +59,9 @@ function App() {
               <Route path={ROUTE_PATHS.FAQ} element={<FAQ />} />
             </Routes>
             <Footer />
+            {CHAT_CONFIG.enabled && (
+              <CrispChat websiteId={CHAT_CONFIG.crispWebsiteId} />
+            )}
           </div>
         </Router>
       </ToastProvider>
