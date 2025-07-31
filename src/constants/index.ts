@@ -446,8 +446,4 @@ export const COMPANY_INFO = {
   founded: 2020,
 } as const;
 
-// Chat configuration
-export const CHAT_CONFIG = {
-  crispWebsiteId: import.meta.env.VITE_CRISP_WEBSITE_ID || 'YOUR_CRISP_WEBSITE_ID',
-  enabled: import.meta.env.VITE_CRISP_ENABLED !== 'false', // Enabled by default
-} as const; 
+ 
