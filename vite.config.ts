@@ -24,7 +24,7 @@ export default defineConfig({
       exclude: ['**/components/**'],
     }),
     VitePluginSitemap({
-      hostname: 'https://anoratech.com',
+      hostname: 'https://anorateck.com',
       dynamicRoutes: [
         '/',
         '/services',
