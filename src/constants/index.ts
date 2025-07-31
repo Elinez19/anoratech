@@ -446,4 +446,10 @@ export const COMPANY_INFO = {
   founded: 2020,
 } as const;
 
+// Chat configuration
+export const CHAT_CONFIG = {
+  jivoWidgetId: import.meta.env.VITE_JIVO_WIDGET_ID || 'f8Fb1u752i',
+  enabled: import.meta.env.VITE_JIVO_ENABLED !== 'false', // Enabled by default
+} as const;
+
  

@@ -18,6 +18,8 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import FAQ from './pages/FAQ';
 import { ROUTE_PATHS } from './routes';
+import JivoChat from './components/ui/JivoChat';
+import { CHAT_CONFIG } from './constants';
 
 
 function App() {
@@ -58,7 +60,9 @@ function App() {
               <Route path={ROUTE_PATHS.FAQ} element={<FAQ />} />
             </Routes>
             <Footer />
-
+            {CHAT_CONFIG.enabled && (
+              <JivoChat widgetId={CHAT_CONFIG.jivoWidgetId} />
+            )}
           </div>
         </Router>
       </ToastProvider>
