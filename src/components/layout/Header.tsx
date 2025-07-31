@@ -15,6 +15,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleDarkMode }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
+  const [mobileSubmenuOpen, setMobileSubmenuOpen] = useState<string | null>(null);
   const location = useLocation();
 
   useEffect(() => {
@@ -22,8 +23,17 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleDarkMode }) => {
       setScrolled(window.scrollY > 20);
     };
 
+    const handleClickOutside = () => {
+      setActiveMegaMenu(null);
+    };
+
     window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    document.addEventListener('click', handleClickOutside);
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('click', handleClickOutside);
+    };
   }, []);
 
   const handleMegaMenuEnter = (title: string) => {
@@ -66,6 +76,7 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleDarkMode }) => {
                     className="relative"
                     onMouseEnter={() => hasMegaMenu && handleMegaMenuEnter(item.label)}
                     onMouseLeave={handleMegaMenuLeave}
+                    onClick={(e) => e.stopPropagation()}
                   >
                     <Link
                       to={item.href}
@@ -79,25 +90,26 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleDarkMode }) => {
                       {hasMegaMenu && <ChevronDown size={16} />}
                     </Link>
                     {/* Mega Menu */}
-                    {hasMegaMenu && activeMegaMenu === item.label && (
-                      <AnimatePresence>
+                    <AnimatePresence>
+                      {hasMegaMenu && activeMegaMenu === item.label && (
                         <motion.div
                           initial={{ opacity: 0, y: -10 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -10 }}
                           transition={{ duration: 0.2 }}
-                          className="absolute top-full left-0 mt-2 w-screen max-w-4xl bg-white border border-midnight-100 rounded-lg shadow-xl"
+                          className="absolute top-full left-0 mt-2 bg-white border border-midnight-100 rounded-lg shadow-xl z-50"
                           style={{
-                            left: '50%',
-                            transform: 'translateX(-50%)'
+                            width: '600px',
+                            maxWidth: '90vw'
                           }}
                         >
-                          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 p-6">
+                          <div className="grid grid-cols-2 gap-6 p-6 justify-items-center">
                             {MEGA_MENU_ITEMS.find(menu => menu.title === item.label)?.items.map((subItem) => (
                               <Link
                                 key={subItem.label}
                                 to={subItem.href}
-                                className="group p-4 rounded-lg hover:bg-midnight-50 transition-colors"
+                                className="group p-4 rounded-lg hover:bg-midnight-50 transition-colors text-center w-full"
+                                onClick={() => setActiveMegaMenu(null)}
                               >
                                 <h3 className="font-semibold text-midnight-900 group-hover:text-mint-600 transition-colors">
                                   {subItem.label}
@@ -109,8 +121,8 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleDarkMode }) => {
                             ))}
                           </div>
                         </motion.div>
-                      </AnimatePresence>
-                    )}
+                      )}
+                    </AnimatePresence>
                   </div>
                 );
               })}
@@ -161,21 +173,56 @@ const Header: React.FC<HeaderProps> = ({ isDarkMode, toggleDarkMode }) => {
             className="lg:hidden bg-white border-t border-midnight-100"
           >
             <div className="container mx-auto px-4 py-4">
-              <nav className="flex flex-col space-y-4">
-                {NAV_ITEMS.map((item) => (
-                  <Link
-                    key={item.label}
-                    to={item.href}
-                    className={`py-2 px-3 rounded-lg font-medium transition-colors ${
-                      isActiveLink(item.href)
-                        ? 'text-mint-600 bg-mint-50'
-                        : 'text-midnight-800 hover:text-mint-600'
-                    }`}
-                    onClick={() => setIsMenuOpen(false)}
-                  >
-                    {item.label}
-                  </Link>
-                ))}
+              <nav className="flex flex-col space-y-2">
+                {NAV_ITEMS.map((item) => {
+                  const hasMegaMenu = MEGA_MENU_ITEMS.some(menu => menu.title === item.label);
+                  return (
+                    <div key={item.label}>
+                      <div className="flex items-center justify-between">
+                        <Link
+                          to={item.href}
+                          className={`flex-1 py-2 px-3 rounded-lg font-medium transition-colors ${
+                            isActiveLink(item.href)
+                              ? 'text-mint-600 bg-mint-50'
+                              : 'text-midnight-800 hover:text-mint-600'
+                          }`}
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          {item.label}
+                        </Link>
+                        {hasMegaMenu && (
+                          <button
+                            onClick={() => setMobileSubmenuOpen(
+                              mobileSubmenuOpen === item.label ? null : item.label
+                            )}
+                            className="p-2 text-midnight-600 hover:text-mint-600 transition-colors"
+                          >
+                            <ChevronDown 
+                              size={16} 
+                              className={`transition-transform ${
+                                mobileSubmenuOpen === item.label ? 'rotate-180' : ''
+                              }`}
+                            />
+                          </button>
+                        )}
+                      </div>
+                      {hasMegaMenu && mobileSubmenuOpen === item.label && (
+                        <div className="mt-2 ml-4 space-y-2">
+                          {MEGA_MENU_ITEMS.find(menu => menu.title === item.label)?.items.map((subItem) => (
+                            <Link
+                              key={subItem.label}
+                              to={subItem.href}
+                              className="block py-2 px-3 text-sm text-midnight-600 hover:text-mint-600 hover:bg-mint-50 rounded-lg transition-colors"
+                              onClick={() => setIsMenuOpen(false)}
+                            >
+                              {subItem.label}
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
                 <div className="pt-4">
                   <Button href={ROUTE_PATHS.CONTACT} variant="primary" className="w-full">
                     Get Started
