@@ -424,8 +424,18 @@ export const SOCIAL_LINKS = {
 // Contact information
 export const CONTACT_INFO = {
   email: 'hello@anoratech.com',
-  phone: '+1 (555) 123-4567',
-  address: '123 Tech Street, Innovation City, IC 12345',
+  phone: '+234 (0) 812 345 6789',
+  address: 'Plot 1234, Central Business District, Abuja, FCT, Nigeria',
+  locations: {
+    abuja: {
+      address: 'Plot 1234, Central Business District, Abuja, FCT, Nigeria',
+      phone: '+234 (0) 812 345 6789'
+    },
+    adoEkiti: {
+      address: '15 Iworoko Road, Ado Ekiti, Ekiti State, Nigeria',
+      phone: '+234 (0) 813 456 7890'
+    }
+  }
 } as const;
 
 // Company information

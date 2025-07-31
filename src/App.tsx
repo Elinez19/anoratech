@@ -7,6 +7,8 @@ import Footer from './components/layout/Footer';
 import Home from './pages/Home';
 import Services from './pages/Services';
 import ServiceDetails from './pages/ServiceDetails';
+import ServicesAbuja from './pages/ServicesAbuja';
+import ServicesAdoEkiti from './pages/ServicesAdoEkiti';
 import Portfolio from './pages/Portfolio';
 import PortfolioDetails from './pages/PortfolioDetails';
 import Blog from './pages/Blog';
@@ -43,6 +45,8 @@ function App() {
               <Route path={ROUTE_PATHS.HOME} element={<Home />} />
               <Route path={ROUTE_PATHS.SERVICES} element={<Services />} />
               <Route path={ROUTE_PATHS.SERVICE_DETAILS} element={<ServiceDetails />} />
+              <Route path={ROUTE_PATHS.SERVICES_ABUJA} element={<ServicesAbuja />} />
+              <Route path={ROUTE_PATHS.SERVICES_ADO_EKITI} element={<ServicesAdoEkiti />} />
               <Route path={ROUTE_PATHS.PORTFOLIO} element={<Portfolio />} />
               <Route path={ROUTE_PATHS.PORTFOLIO_DETAILS} element={<PortfolioDetails />} />
               <Route path={ROUTE_PATHS.BLOG} element={<Blog />} />

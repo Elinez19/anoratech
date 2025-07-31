@@ -16,8 +16,8 @@ interface SEOProps {
 
 export default function SEO({
   title = 'AnoraTech - AI-Powered MVPs',
-  description = 'Leading technology company specializing in web development, mobile applications, and digital solutions.',
-  keywords = ['web development', 'mobile apps', 'AI', 'technology', 'digital solutions'],
+  description = 'Leading software development agency in Nigeria specializing in web development, mobile applications, and digital solutions. Serving Abuja, Ado Ekiti, and across Nigeria.',
+  keywords = ['software development agency Nigeria', 'web development Abuja', 'mobile app development Ado Ekiti', 'best software company Nigeria', 'technology solutions Nigeria', 'digital transformation Nigeria'],
   image = '/og-image.jpg',
   url = 'https://anoratech.com',
   type = 'website',
@@ -93,24 +93,87 @@ export default function SEO({
       <script type="application/ld+json">
         {JSON.stringify({
           '@context': 'https://schema.org',
-          '@type': 'Organization',
+          '@type': 'LocalBusiness',
+          '@id': 'https://anoratech.com',
           name: 'AnoraTech',
+          alternateName: 'AnoraTech Software Development Agency',
           url: 'https://anoratech.com',
           logo: 'https://anoratech.com/logo.png',
-          description: 'Leading technology company specializing in web development, mobile applications, and digital solutions.',
-          address: {
-            '@type': 'PostalAddress',
-            streetAddress: '123 Tech Street',
-            addressLocality: 'Innovation City',
-            addressRegion: 'IC',
-            postalCode: '12345',
-            addressCountry: 'US',
+          description: 'Leading software development agency in Nigeria specializing in web development, mobile applications, and digital solutions. Best software development company serving Abuja, Ado Ekiti, and across Nigeria.',
+          priceRange: '$$',
+          telephone: '+234-812-345-6789',
+          email: 'hello@anoratech.com',
+          areaServed: [
+            {
+              '@type': 'State',
+              name: 'Federal Capital Territory'
+            },
+            {
+              '@type': 'State', 
+              name: 'Ekiti State'
+            },
+            {
+              '@type': 'Country',
+              name: 'Nigeria'
+            }
+          ],
+          address: [
+            {
+              '@type': 'PostalAddress',
+              streetAddress: 'Plot 1234, Central Business District',
+              addressLocality: 'Abuja',
+              addressRegion: 'FCT',
+              addressCountry: 'NG'
+            },
+            {
+              '@type': 'PostalAddress',
+              streetAddress: '15 Iworoko Road',
+              addressLocality: 'Ado Ekiti',
+              addressRegion: 'Ekiti State',
+              addressCountry: 'NG'
+            }
+          ],
+          hasOfferCatalog: {
+            '@type': 'OfferCatalog',
+            name: 'Software Development Services',
+            itemListElement: [
+              {
+                '@type': 'Offer',
+                itemOffered: {
+                  '@type': 'Service',
+                  name: 'Web Development',
+                  description: 'Custom web applications and responsive websites'
+                }
+              },
+              {
+                '@type': 'Offer', 
+                itemOffered: {
+                  '@type': 'Service',
+                  name: 'Mobile App Development',
+                  description: 'Native and cross-platform mobile applications'
+                }
+              },
+              {
+                '@type': 'Offer',
+                itemOffered: {
+                  '@type': 'Service', 
+                  name: 'Digital Solutions',
+                  description: 'Complete digital transformation services'
+                }
+              }
+            ]
           },
-          contactPoint: {
-            '@type': 'ContactPoint',
-            telephone: '+1-555-123-4567',
-            contactType: 'customer service',
-            email: 'hello@anoratech.com',
+          openingHoursSpecification: {
+            '@type': 'OpeningHoursSpecification',
+            dayOfWeek: [
+              'Monday',
+              'Tuesday', 
+              'Wednesday',
+              'Thursday',
+              'Friday'
+            ],
+            opens: '09:00',
+            closes: '18:00'
           },
           sameAs: [
             'https://facebook.com/anora-tech',

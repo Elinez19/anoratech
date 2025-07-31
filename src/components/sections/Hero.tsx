@@ -28,9 +28,9 @@ const Hero: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight"
           >
-            Transform Your Vision Into Reality <br className="hidden md:block" />
+            Nigeria's Premier Software Development Agency <br className="hidden md:block" />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-mint-500 to-mint-700">
-              In Just Weeks
+              Serving Abuja & Ado Ekiti
             </span>
           </motion.h1>
           
@@ -40,8 +40,7 @@ const Hero: React.FC = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-lg md:text-xl text-midnight-600 mb-8 max-w-3xl mx-auto"
           >
-            We build production-ready MVPs at unprecedented speed using our AI-powered development process. 
-            From idea to market in weeks, not months.
+            Leading software development agency in Nigeria specializing in web development, mobile applications, and digital solutions. We serve businesses in Abuja, Ado Ekiti, and across Nigeria with world-class technology services.
           </motion.p>
           
           <motion.div 

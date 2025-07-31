@@ -12,6 +12,8 @@ export const ROUTE_PATHS = {
   FAQ: ROUTES.FAQ,
   // Detail routes
   SERVICE_DETAILS: '/services/:serviceSlug',
+  SERVICES_ABUJA: '/services/abuja',
+  SERVICES_ADO_EKITI: '/services/ado-ekiti',
   PORTFOLIO_DETAILS: '/portfolio/:projectSlug',
   BLOG_DETAILS: '/blog/:slug',
 } as const;
@@ -57,6 +59,16 @@ export const ROUTE_METADATA = {
     title: 'FAQ - AnoraTech',
     description: 'Find answers to frequently asked questions about our services and process.',
     keywords: ['FAQ', 'questions', 'services', 'process'],
+  },
+  '/services/abuja': {
+    title: 'Best Software Development Agency in Abuja - AnoraTech',
+    description: 'Top-rated software development agency in Abuja, FCT. Expert web development, mobile apps, and digital solutions serving Central Business District, Maitama, Wuse, Garki.',
+    keywords: ['software development agency Abuja', 'web development Abuja FCT', 'mobile app development Abuja', 'Abuja software company'],
+  },
+  '/services/ado-ekiti': {
+    title: 'Best Software Development Agency in Ado Ekiti - AnoraTech',
+    description: 'Leading software development agency in Ado Ekiti, Ekiti State. Professional web development, mobile apps, and digital solutions serving Ado Ekiti and surrounding areas.',
+    keywords: ['software development agency Ado Ekiti', 'web development Ado Ekiti', 'mobile app development Ekiti State', 'Ado Ekiti software company'],
   },
 } as const;
 

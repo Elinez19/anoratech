@@ -54,9 +54,9 @@ const Home: React.FC = () => {
   return (
     <>
       <SEO
-        title="AnoraTech - AI-Powered MVPs"
-        description="Leading technology company specializing in web development, mobile applications, and digital solutions. Transform your ideas into reality with our expert team."
-        keywords={['web development', 'mobile apps', 'AI', 'technology', 'digital solutions', 'MVP', 'startup', 'consulting']}
+        title="Best Software Development Agency in Nigeria - AnoraTech"
+        description="Leading software development agency in Nigeria serving Abuja, Ado Ekiti. Expert web development, mobile apps, digital solutions. Best software company in Nigeria."
+        keywords={['best software development agency Nigeria', 'software company Abuja', 'web development Ado Ekiti', 'mobile app development Nigeria', 'digital solutions Nigeria', 'best software company Nigeria', 'technology services Abuja', 'software development FCT']}
         url="/"
         type="website"
       />
